@@ -1,0 +1,23 @@
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from myapp.models import Books
+from mysite.serializers import BooksSerializer
+
+@api_view(['GET''])
+def book_list(request, format=None):
+	books = Books.objects.all()
+	serializer = BooksSerializer(books, many=True)
+	return Response(serializer.data)
+
+@api_view(['GET'])
+def 
+	
+@api_view(['GET'])
+def book_detail(request, pk, format=None):
+	try:
+		book = Books.objects.get(pk=pk)
+	except Books.DoesNotExist:
+		return Response(status=status.HTTP_404_NOT_FOUND)
+	serializer = BooksSerializer(books)
+	return Response(serializer.data)
